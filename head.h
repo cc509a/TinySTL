@@ -1,5 +1,6 @@
 #ifndef AYU_HEAD_H
 #define AYU_HEAD_H
+#include <iostream>
 namespace ayu
 {
 typedef unsigned int size_t;

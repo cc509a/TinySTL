@@ -34,7 +34,7 @@ extern char* strcpy(char* des, char* source);
    string& operator=(const string& str)
    {
      string temp = str;
-     swap(*this,temp);
+     sw(*this,temp);
      return *this;
    }
 
@@ -44,13 +44,36 @@ extern char* strcpy(char* des, char* source);
    {
      str.str_ = nullptr;
    }
-   
+   virtual ~string ()
+   {
+     delete []str_;
+   }
+
+//operator   
    string& operator=(string&& str)
    {
-     swap(*this,str);
+     sw(*this,str);
      return *this;
    }
 
+   std::ostream& operator<<(std::ostream& os, const string& str)
+   {
+     os<<str.str_;
+     return os;
+   }
+   
+   char & operator[](size_t i)
+   {
+    assert(i<0 || i >len_);
+    return str_[i];
+   }
+//swap
+   void sw(string& v)
+   {
+     swap (str_, v.str_);
+     swap (len_, v.len_);
+   }
+//return
    const char *c_str() const
    {
      return str_;
