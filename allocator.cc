@@ -11,5 +11,5 @@ const noexcept
   return ((align - result) % align);
 }
 
-
+template <
 #endif
