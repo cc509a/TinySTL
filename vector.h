@@ -23,10 +23,10 @@ template<typename T>
 
      vecotr(vecotr& v)
        :capacity_(v.cap()),
-       size_(v.size()),
+       size_(v.size())
      {
-       data_ = v.data_；
-       v.data_ = nullptr;
+       data_ = v.data_;
+       v.data_ = NULL;
      }
 //operator
      vecotr& operator= (const vecotr& v)
@@ -94,5 +94,5 @@ template<typename T>
      T* data_;
 
 };
-
+}
 #endif
