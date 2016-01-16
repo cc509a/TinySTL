@@ -3,6 +3,7 @@
 
 #include <climits>
 #include <cstddef>
+#include <stdint.h>
 namespace ayu
 {
     template <typename T, size_t BlockSize = 4096>
@@ -26,31 +27,37 @@ namespace ayu
             typedef Allocator<U> other;
         };
         
-        Allocator() noexcept;
-        Allocator(const Allocator& allocator) noexcept;
-        Allocator(Allocator&& allocator) noexcept;
-        template<class U> Allocator(const Allocator<U>& allocator)noexcept;
+        Allocator() throw();
+        Allocator(const Allocator& allocator) throw();
+        //Allocator(Allocator&& allocator) throw();
+        template<class U> Allocator(const Allocator<U>& allocator) throw();
         
-        ~Allocator() noexcept;
+        ~Allocator() throw();
         
-        Allocator& operator=(const Allocator& allocator) = delete;
-        Allocator& operator=(Allocator&& allocator) noexcept;
+        //Allocator& operator=(const Allocator& allocator) = delete;
+        //Allocator& operator=(Allocator&& allocator) throw();
         //元素取址
-        pointer address(reference x) const noexcept;
-        const_pointer address(const_reference x) const noexcept;
+        pointer address(reference x) const throw();
+        const_pointer address(const_reference x) const throw();
         
         //allocae one object at a time
         pointer allocate(size_type n = 1,const_pointer hint = 0);
         void deallocate(pointer p, size_type n = 1);
         
-        size_type max_size() const noexcept;
+        size_type max_size() const throw();
         //基于内存池的释放和构造
-        template<class U, class... Args> void construct(U* p, Args&&... args);
-        template<class U> void destory(U* p);
+        //template<class U, class... Args> void construct(U* p, Args&&... args);
+        //template<class U> void destory(U* p);
+        void construct(pointer p, const_reference val);
+        void destroy(pointer p);
         //自带内存申请和释放
+        /*
         template<class... Args> pointer newElement(Args&&... args);
-        void deketeEkenent(pointer p);
-        
+        void deleteElement(pointer p);
+        */
+
+        pointer newElement(const_reference val);
+        void deleteElement(pointer p);
     private:
         //用于存放元素或next指针
         union Slot_
@@ -68,10 +75,10 @@ namespace ayu
         slot_pointer_ lastSlot_;//可存放元素的最后指针
         slot_pointer_ freeSlots_;//元素构造后释放的内存链表头指针
         
-        size_type padPointer(data_pointer_, size_type align) const noexcept;//计算对齐空间
+        size_type padPointer(data_pointer_ p, size_type align) const throw();//计算对齐空间
         void allocateBlock();//申请内存放进内存池
         
-        static_assert(BlockSize >= 2 * sizeof(slot_type_), "BlockSize too smll.");
+       // static_assert(BlockSize >= 2 * sizeof(slot_type_), "BlockSize too smll.");
         
     };
 }//end ayu
