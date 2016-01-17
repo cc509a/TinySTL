@@ -18,9 +18,6 @@ namespace ayu
         typedef const T&            const_reference;
         typedef size_t              size_type;
         typedef ptrdiff_t           difference_type;
-        //typedef std::false_type propagate_on_container_copy_assignment;
-        //typedef std::true_type  propagate_on_container_move_assignment;
-        //typedef std::true_type  propagate_on_container_swap;
         
         template <typename U> struct rebind
         {
@@ -29,13 +26,10 @@ namespace ayu
         
         Allocator() throw();
         Allocator(const Allocator& allocator) throw();
-        //Allocator(Allocator&& allocator) throw();
         template<class U> Allocator(const Allocator<U>& allocator) throw();
         
         ~Allocator() throw();
         
-        //Allocator& operator=(const Allocator& allocator) = delete;
-        //Allocator& operator=(Allocator&& allocator) throw();
         //元素取址
         pointer address(reference x) const throw();
         const_pointer address(const_reference x) const throw();
@@ -46,16 +40,9 @@ namespace ayu
         
         size_type max_size() const throw();
         //基于内存池的释放和构造
-        //template<class U, class... Args> void construct(U* p, Args&&... args);
-        //template<class U> void destory(U* p);
         void construct(pointer p, const_reference val);
         void destroy(pointer p);
         //自带内存申请和释放
-        /*
-        template<class... Args> pointer newElement(Args&&... args);
-        void deleteElement(pointer p);
-        */
-
         pointer newElement(const_reference val);
         void deleteElement(pointer p);
     private:

@@ -28,17 +28,6 @@ Allocator<T, BlockSize>::Allocator(const Allocator& Allocator) throw()
   Allocator();
 }
 
-/*
-template <typename T, size_t BlockSize>
-Allocator<T, BlockSize>::Allocator(Allocator&& memoryPool) throw()
-{
-  currentBlock_ = memoryPool.currentBlock_;
-  memoryPool.currentBlock_ = NULL;
-  currentSlot_ = memoryPool.currentSlot_;
-  lastSlot_ = memoryPool.lastSlot_;
-  freeSlots_ = memoryPool.freeSlots;
-}
-*/
 
 template <typename T, size_t BlockSize>
 template<class U>
@@ -46,21 +35,6 @@ Allocator<T, BlockSize>::Allocator(const Allocator<U>& memoryPool) throw()
 {
   Allocator();
 }
-/*
-template <typename T, size_t BlockSize>
-Allocator<T, BlockSize>&
-Allocator<T, BlockSize>::operator=(Allocator&& memoryPool)  throw()
-{
-  if (this != &memoryPool)
-  {
-    std::swap(currentBlock_, memoryPool.currentBlock_);
-    currentSlot_ = memoryPool.currentSlot_;
-    lastSlot_ = memoryPool.lastSlot_;
-    freeSlots_ = memoryPool.freeSlots;
-  }
-  return *this;
-}
-*/
 
 template <typename T, size_t BlockSize>
 Allocator<T, BlockSize>::~Allocator() throw()
@@ -181,38 +155,7 @@ Allocator<T, BlockSize>::newElement(const_reference val)
 }
 
 
-/*
-template <typename T, size_t BlockSize>
-template <class U, class... Args>
-inline void
-Allocator<T, BlockSize>::construct(U* p, Args&&... args)
-{
-  new (p) U (std::forward<Args>(args)...);
-}
 
-
-
-template <typename T, size_t BlockSize>
-template <class U>
-inline void
-Allocator<T, BlockSize>::destroy(U* p)
-{
-  p->~U();
-}
-
-
-
-template <typename T, size_t BlockSize>
-template <class... Args>
-inline typename Allocator<T, BlockSize>::pointer
-Allocator<T, BlockSize>::newElement(Args&&... args)
-{
-  pointer result = allocate();
-  construct<value_type>(result, std::forward<Args>(args)...);
-  return result;
-}
-
-*/
 
 template <typename T, size_t BlockSize>
 inline void
