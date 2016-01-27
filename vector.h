@@ -6,22 +6,22 @@ namespace ayu
 {
 const size_t DEFAULT_CAP = 3;
 template<typename T>
- class vecotr
+ class vector
  {
    public:
-     vecotr()
+     vector()
        :capacity_(DEFAULT_CAP),
        size_(0),
        data_(new T[capacity_])
       {
       }
       
-     virtual ~vecotr()
+     virtual ~vector()
      {
        delete []data_;
      }
 
-     vecotr(vecotr& v)
+     vector(vector& v)
        :capacity_(v.cap()),
        size_(v.size())
      {
@@ -29,7 +29,7 @@ template<typename T>
        v.data_ = NULL;
      }
 //operator
-     vecotr& operator= (const vecotr& v)
+     vector& operator= (const vector& v)
      {
        sw(*this,v);
        return *this;
@@ -71,7 +71,7 @@ template<typename T>
        delete []temp;
      }
 
-     void sw (vecotr& v)
+     void sw (vector& v)
      {
        swap(size_, v.size_);
        swap(data_, v.data_);
