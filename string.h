@@ -5,8 +5,6 @@
 using namespace ayu;
 namespace ayu
 {
-extern size_t strlen(const char *str);
-extern char* strcpy(char* des, char* source);
  class string
  {
    public:
@@ -22,7 +20,7 @@ extern char* strcpy(char* des, char* source);
      :len_(strlen(str)),
       str_(new char[len_+1])
    {
-    str_[len_] = '\0'; 
+    strcpy(str_,str); 
    }
   
    string (const string &str)
@@ -34,7 +32,7 @@ extern char* strcpy(char* des, char* source);
    string& operator=(const string& str)
    {
      string temp = str;
-     sw(*this,temp);
+     sw(temp);
      return *this;
    }
 
@@ -52,11 +50,11 @@ extern char* strcpy(char* des, char* source);
 //operator   
    string& operator=(string&& str)
    {
-     sw(*this,str);
+     sw(str);
      return *this;
    }
 
-   std::ostream& operator<<(std::ostream& os, const string& str)
+  friend std::ostream& operator<<(std::ostream& os, const string& str)
    {
      os<<str.str_;
      return os;
@@ -89,24 +87,6 @@ extern char* strcpy(char* des, char* source);
      char * str_;
  };
 
-   size_t strlen(const char* str)
-   {
-     assert(str != nullptr);
-     size_t len = 0;
-     while((*str++) != '\0')
-     {
-       ++len;
-     }
-     return len;
-   }
-
-   char* strcpy(char* des, char* source)
-   {
-     assert((des != nullptr) && (source != nullptr));
-     char *ret = des;
-     while((*des++ = *source++) != '\0');
-     return ret;
-   }
 
 }
-
+#endif

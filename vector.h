@@ -2,6 +2,7 @@
 #define AYU_VECTOR_H
 
 #include "head.h"
+#include "allocator.h"
 namespace ayu
 {
 const size_t DEFAULT_CAP = 3;
