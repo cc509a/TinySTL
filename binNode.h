@@ -6,17 +6,17 @@ template <typename T>
 struct BinNode 
 {
    T data_; 
-   BinNodePosi(T) parent_; 
-   BinNodePosi(T) lChild_;
-   BinNodePosi(T) rChild_; 
-   int height_; 
-   int npl_; //Null Path Length（左式堆，也可直接用height代替）
-   RBColor color_; //颜色（红黑树）
+   BinNodePosi(T) parent; 
+   BinNodePosi(T) lChild;
+   BinNodePosi(T) rChild; 
+   int height; 
+   int npl; //Null Path Length（左式堆，也可直接用height代替）
+   RBColor color; //颜色（红黑树）
 // 构造函数
-   BinNode() : parent_(NULL), lChild_(NULL), rChild_(NULL), height_(0), npl_(1), color_(RB_RED) { }
+   BinNode() : parent(NULL), lChild(NULL), rChild(NULL), height(0), npl(1), color(RB_RED) { }
    BinNode(T e, BinNodePosi(T) p = NULL, BinNodePosi(T) lc = NULL, BinNodePosi(T) rc = NULL,
            int h = 0, int l = 1, RBColor c = RB_RED)
-      : data_(e), parent_(p), lChild_(lc), rChild_(rc), height_(h), npl_(l), color_(c) { }
+      : data_(e), parent(p), lChild(lc), rChild(rc), height(h), npl(l), color(c) { }
 // 操作接口
    int size(); //统计当前节点后代总数，亦即以其为根的子树的规模
    BinNodePosi(T) insertAsLC(T const &); //作为当前节点的左孩子插入新节点
